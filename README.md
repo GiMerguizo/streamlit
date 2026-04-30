@@ -1,6 +1,6 @@
 # Projeto com o Streamlit
 
-- **Documentação:**[https://streamlit.io/](https://streamlit.io/)
+- **Documentação:** [https://streamlit.io/](https://streamlit.io/)
 
 ## Requisitos
 
@@ -24,3 +24,5 @@ streamlit run main.py
 ## Hashtag Programação
 - ▶️ [Curso de Streamlit - Aula 1 - Como Funciona Criar Apps e Sites com o Streamlit
 ](https://youtu.be/NsjA-c8596k?si=iBFVJ-2gwIAJMg-I)
+- ▶️ [Curso de Streamlit - Aula 2 - Filtros e Gráficos
+](https://youtu.be/fUuBo759oqg?si=qzeFEHxY-g1j4rI4)
