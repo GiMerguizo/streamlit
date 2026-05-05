@@ -54,6 +54,8 @@ dados = dados.loc[intervalo_data[0]:intervalo_data[1]]
 ## Criar o gráfico
 st.line_chart(dados) # gráfico de linha
 
+
+### Calculo de performance
 texto_performance_ativos = ""
 
 if len(lista_acoes)==0:
@@ -61,15 +63,38 @@ if len(lista_acoes)==0:
 elif len(lista_acoes)==1:
     dados = dados.rename(columns={acao_unica: "Close"})
 
-for acao in lista_acoes:
+carteira = [1000 for acao in lista_acoes]
+total_inicial_carteira = sum(carteira)
+
+for i, acao in enumerate(lista_acoes):
     # performance_ativos = VALOR_FINAL / VALOR_INICIAL - 1
     performance_ativo = dados[acao].iloc[-1] / dados[acao].iloc[0] - 1
     performance_ativo = float(performance_ativo)
-    texto_performance_ativos = texto_performance_ativos + f"  \n{acao}: {performance_ativo:.1f}%"
+
+    carteira[i] = carteira[i] * (1 + performance_ativo)
+
+    if performance_ativo > 0:
+        texto_performance_ativos = texto_performance_ativos + f"  \n{acao}: :green[{performance_ativo:.1f}%]"
+    elif performance_ativo < 0:
+        texto_performance_ativos = texto_performance_ativos + f"  \n{acao}: :red[{performance_ativo:.1f}%]"
+    else:
+        texto_performance_ativos = texto_performance_ativos + f"  \n{acao}: {performance_ativo:.1f}%"
+
+total_final_carteira = sum(carteira)
+performance_carteira = total_final_carteira / total_inicial_carteira - 1
+
+if performance_carteira > 0:
+    texto_performance_carteira = f"Performance da carteira com todos os ativos: :green[{performance_carteira:.1f}%]"
+elif performance_carteira < 0:
+    texto_performance_carteira = f"Performance da carteira com todos os ativos: :red[{performance_carteira:.1f}%]"
+else:
+    texto_performance_carteira = f"Performance da carteira com todos os ativos: {performance_carteira:.1f}%"
 
 st.write("""
 ### Performance dos Ativos
 Essa foi a performance de cada ativo no período selecionado:
 
 {texto_performance_ativos}
+
+{texto_performance_carteira}
 """) # markdown
